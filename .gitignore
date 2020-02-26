@@ -1,10 +1,11 @@
-/.eslintcache
-/coverage
-/packages/*/dist
-/packages/*/lib
-
 node_modules
+lib
+**/build
+test/reports
+test/coverage
+dist
+.npmrc
 npm-debug.log
 lerna-debug.log
 **.orig
-package-lock.json
+.vscode

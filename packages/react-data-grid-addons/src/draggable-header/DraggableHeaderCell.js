@@ -1,18 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { DragSource, DropTarget } from 'react-dnd';
 
 class DraggableHeaderCell extends React.Component {
-  static propTypes = {
-    connectDragSource: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired,
-    isOver: PropTypes.bool,
-    canDrop: PropTypes.bool,
-    children: PropTypes.element.isRequired
-  };
-
   render() {
     const {
       connectDragSource,
@@ -22,13 +12,18 @@ class DraggableHeaderCell extends React.Component {
       canDrop
     } = this.props;
 
+    let opacity = 1;
+    if (isDragging) {
+      opacity = 0.2;
+    }
+
     // set drag source and drop target on header cell
     // width: 0 - otherwise drag clone was wrongly positioned
     return connectDragSource(
       connectDropTarget(
         <div
-          className={classNames('rdg-draggable-header-cell', { 'rdg-can-drop': isOver && canDrop })}
-          style={{ opacity: isDragging ? 0.2 : 1 }}
+          style={{ width: 0, cursor: 'move', opacity }}
+          className={isOver && canDrop ? 'rdg-can-drop' : ''}
         >
           {this.props.children}
         </div>
@@ -55,7 +50,8 @@ const headerCellSource = {
   endDrag(props, monitor) {
     // check if drop was made in droppable zone
     if (monitor.didDrop()) {
-      const { source, target } = monitor.getDropResult();
+      const source = monitor.getDropResult().source;
+      const target = monitor.getDropResult().target;
       return props.onHeaderDrop(source, target);
     }
   }
@@ -67,7 +63,7 @@ const target = {
     const source = monitor.getItem().key;
     const targetKey = props.column.key;
     return {
-      source,
+      source: source,
       target: targetKey
     };
   }
@@ -81,6 +77,15 @@ function targetCollect(connect, monitor) {
     draggedHeader: monitor.getItem()
   };
 }
+
+DraggableHeaderCell.propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  isOver: PropTypes.bool,
+  canDrop: PropTypes.bool,
+  children: PropTypes.element.isRequired
+};
 
 export default DragSource('Column', headerCellSource, collect)(
   DropTarget('Column', target, targetCollect)(

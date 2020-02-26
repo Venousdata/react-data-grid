@@ -1,16 +1,9 @@
 import { DragSource } from 'react-dnd';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DragItemTypes } from 'react-data-grid';
+import { DragItemTypes } from 'common/constants';
 
 class DraggableHeaderCell extends Component {
-  static propTypes = {
-    connectDragSource: PropTypes.func.isRequired,
-    connectDragPreview: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired,
-    children: PropTypes.element.isRequired
-  };
-
   componentDidMount() {
     const { connectDragPreview } = this.props;
     const img = new Image();
@@ -23,9 +16,16 @@ class DraggableHeaderCell extends Component {
     if (isDragging) {
       return null;
     }
-    return connectDragSource(<div className="rdg-draggable-header-cell">{this.props.children}</div>);
+    return connectDragSource(<div style={{ cursor: 'move' }}>{this.props.children}</div>);
   }
 }
+
+DraggableHeaderCell.propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  connectDragPreview: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired
+};
 
 function collect(connect, monitor) {
   return {

@@ -1,12 +1,12 @@
-'use strict';
-
 module.exports = {
   presets: [
-    '@babel/env',
-    '@babel/react'
-  ],
+    ['@babel/env', {
+      useBuiltIns: 'entry'}],
+    '@babel/react'],
   plugins: [
-    ['@babel/transform-runtime', { useESModules: true }],
-    '@babel/proposal-class-properties'
+    '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-transform-property-literals',
+    '@babel/plugin-transform-member-expression-literals',
+    '@babel/plugin-transform-runtime'
   ]
 };

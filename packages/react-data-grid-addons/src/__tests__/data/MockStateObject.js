@@ -1,5 +1,5 @@
-export default function(stateValues, events) {
-  return {
+module.exports = function(stateValues, events) {
+  return Object.assign({
     columnMetrics: {
       columns: [{
         idx: 0,
@@ -31,12 +31,15 @@ export default function(stateValues, events) {
       width: 400,
       totalWidth: 0,
       totalColumnWidth: 400,
-      minColumnWidth: 80,
-      lastFrozenColumnIndex: -1
+      minColumnWidth: 80
     },
     selectedRows: [],
     canFilter: false,
-    lastRowIdxUiSelected: -1,
-    ...stateValues
-  };
-}
+    expandedRows: [],
+    columnFilters: {},
+    sortDirection: null,
+    sortColumn: null,
+    scrollOffset: 0,
+    lastRowIdxUiSelected: -1
+  }, stateValues);
+};

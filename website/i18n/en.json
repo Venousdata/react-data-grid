@@ -38,6 +38,9 @@
       "examples/advanced-filtering": {
         "title": "Advanced Filtering"
       },
+      "examples/autocomplete-editor": {
+        "title": "Autocomplete Editor"
+      },
       "examples/basic-grouping": {
         "title": "Basic Column Grouping"
       },

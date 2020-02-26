@@ -1,12 +1,12 @@
 import React from 'react';
+import filterRows from '../RowFilterer';
+import { fromJS } from 'immutable';
+import AutoCompleteFilter from '../../cells/headerCells/filters/AutoCompleteFilter';
 import TestUtils from 'react-dom/test-utils';
 
-import filterRows from '../RowFilterer';
-import AutoCompleteFilter from '../../cells/headerCells/filters/AutoCompleteFilter';
-
 const rows = [{ colOne: 'v1', colTwo: 'b1' },
-  { colOne: 'v2', colTwo: 'b2' },
-  { colOne: 'v3', colTwo: 'b3' }];
+              { colOne: 'v2', colTwo: 'b2' },
+              { colOne: 'v3', colTwo: 'b3' }];
 const filters = { colOne: { filterTerm: 'v1' } };
 
 const fakeColumn = { name: 'Col One', key: 'colOne', width: 100 };
@@ -26,6 +26,11 @@ describe('Row Filterer', () => {
     expect(filterResult.length).toBe(1);
   });
 
+  it('It can filter an immutable js list of rows', () => {
+    const immutableList = fromJS(rows);
+    const filterResult = filterRows(filters, immutableList);
+    expect(filterResult.size).toBe(1);
+  });
   it('It can filter a normal array of rows with AutoCompleteFilter', () => {
     const filterResult = filterRows(acFilters, rows);
     expect(filterResult.length).toBe(2);

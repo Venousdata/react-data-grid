@@ -75,6 +75,11 @@ Props
  **defaultValue:** `(value, nextValue) => value !== nextValue`
 
 
+### `isEditorEnabled`
+
+**type:** bool  
+
+
 ### `isExpanded`
 
 **type:** bool  

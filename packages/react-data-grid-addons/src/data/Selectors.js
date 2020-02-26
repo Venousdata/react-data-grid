@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
+import { isEmptyObject, isEmptyArray } from 'common/utils';
 import groupRows from './RowGrouper';
 import filterRows from './RowFilterer';
 import sortRows from './RowSorter';
-import { isEmptyObject, isEmptyArray } from '../utils';
 
 const getInputRows = (state) => state.rows;
 const getFilters = (state) => state.filters;
@@ -41,7 +41,8 @@ const getSelectedRowsByKey = createSelector([getRowKey, getSelectedKeys, getInpu
   });
 });
 
-export {
-  getFlattenedGroupedRows as getRows,
-  getSelectedRowsByKey
+const Selectors = {
+  getRows: getFlattenedGroupedRows,
+  getSelectedRowsByKey: getSelectedRowsByKey
 };
+export default Selectors;

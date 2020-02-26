@@ -1,74 +1,52 @@
-import React from 'react';
+const React = require('react');
 import PropTypes from 'prop-types';
+import { EditorBase } from 'common/editors';
+import ReactDOM from 'react-dom';
 
-export default class DropDownEditor extends React.Component {
-  static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({
-        id: PropTypes.string,
-        title: PropTypes.string,
-        value: PropTypes.string,
-        text: PropTypes.string
-      })
-    ])).isRequired
-  };
-
-  static propTypes = {
-    value: PropTypes.any.isRequired,
-    onBlur: PropTypes.func.isRequired
-    // column: PropTypes.shape(Column).isRequired
-  };
+class DropDownEditor extends EditorBase {
 
   getInputNode() {
-    return this.select;
+    return ReactDOM.findDOMNode(this);
   }
 
-  getValue() {
-    return {
-      [this.props.column.key]: this.select.value
-    };
+  onClick() {
+    this.getInputNode().focus();
   }
 
-  setSelectRef = (select) => {
-    this.select = select;
-  };
-
-  renderOptions() {
-    return this.props.options.map(name => {
-      if (typeof name === 'string') {
-        return (
-          <option
-            key={name}
-            value={name}
-          >
-            {name}
-          </option>
-        );
-      }
-
-      return (
-        <option
-          key={name.id}
-          value={name.value}
-          title={name.title}
-        >
-          {name.text || name.value}
-        </option>
-      );
-    });
+  onDoubleClick() {
+    this.getInputNode().focus();
   }
 
   render() {
     return (
-      <select
-        ref={this.setSelectRef}
-        className="rdg-select-editor"
-        defaultValue={this.props.value}
-        onBlur={this.props.onBlur}
-      >
+      <select style={this.getStyle()} defaultValue={this.props.value} onBlur={this.props.onBlur} onChange={this.onChange} >
         {this.renderOptions()}
-      </select>
-    );
+      </select>);
+  }
+
+  renderOptions() {
+    const options = [];
+    this.props.options.forEach(function(name) {
+      if (typeof(name) === 'string') {
+        options.push(<option key={name} value={name}>{name}</option>);
+      } else {
+        options.push(<option key={name.id} value={name.value} title={name.title}  >{name.text || name.value}</option>);
+      }
+    }, this);
+    return options;
   }
 }
+
+DropDownEditor.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      value: PropTypes.string,
+      text: PropTypes.string
+    })
+  ])).isRequired
+};
+
+module.exports = DropDownEditor;

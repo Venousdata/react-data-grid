@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DragLayer } from 'react-dnd';
+import Selectors from '../data/Selectors';
+import '../../../../themes/react-data-grid-cell.css';
+import '../../../../themes/react-data-grid-row.css';
 
 const layerStyles = {
   cursor: '-webkit-grabbing',
@@ -24,30 +27,30 @@ function getItemStyles(props) {
   const { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
   return {
-    transform,
+    transform: transform,
     WebkitTransform: transform
   };
 }
 
 class CustomDragLayer extends Component {
-  static propTypes = {
-    item: PropTypes.object,
-    itemType: PropTypes.string,
-    currentOffset: PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired
-    }),
-    isDragging: PropTypes.bool.isRequired,
-    selectedRows: PropTypes.object,
-    rows: PropTypes.array.isRequired,
-    columns: PropTypes.array.isRequired
-  };
+
+  isDraggedRowSelected(selectedRows) {
+    const { item, rowSelection } = this.props;
+    if (selectedRows && selectedRows.length > 0) {
+      const key = rowSelection.selectBy.keys.rowKey;
+      return selectedRows.filter(r => r[key] === item.data[key]).length > 0;
+    }
+    return false;
+  }
 
   getDraggedRows() {
     let draggedRows;
-    const { selectedRows } = this.props;
-    if (selectedRows && selectedRows.size > 0) {
-      draggedRows = [...selectedRows];
+    const { rowSelection } = this.props;
+    if (rowSelection && rowSelection.selectBy.keys) {
+      const rows = this.props.rows;
+      const { rowKey, values } = rowSelection.selectBy.keys;
+      const selectedRows = Selectors.getSelectedRowsByKey({ rowKey: rowKey, selectedKeys: values, rows: rows });
+      draggedRows = this.isDraggedRowSelected(selectedRows) ? selectedRows : [this.props.rows[this.props.item.idx]];
     } else {
       draggedRows = [this.props.rows[this.props.item.idx]];
     }
@@ -55,7 +58,7 @@ class CustomDragLayer extends Component {
   }
 
   renderDraggedRows() {
-    const { columns } = this.props;
+    const columns = this.props.columns;
     return this.getDraggedRows().map((r, i) => {
       return <tr key={`dragged-row-${i}`}>{this.renderDraggedCells(r, i, columns) }</tr>;
     });
@@ -64,14 +67,14 @@ class CustomDragLayer extends Component {
   renderDraggedCells(item, rowIdx, columns) {
     const cells = [];
     if (item != null) {
-      columns.forEach(c => {
+      columns.forEach( c => {
         if (item.hasOwnProperty(c.key)) {
           if (c.formatter) {
             const Formatter = c.formatter;
             const dependentValues = typeof c.getRowMetaData === 'function' ? c.getRowMetaData(item, c) : {};
-            cells.push(<td key={`dragged-cell-${rowIdx}-${c.key}`} className="rdg-cell" style={{ padding: '5px' }}><Formatter dependentValues={dependentValues} value={item[c.key]} /></td>);
+            cells.push(<td key={`dragged-cell-${rowIdx}-${c.key}`} className="react-grid-Cell" style={{ padding: '5px' }}><Formatter dependentValues={dependentValues} value={item[c.key]} /></td>);
           } else {
-            cells.push(<td key={`dragged-cell-${rowIdx}-${c.key}`} className="rdg-cell" style={{ padding: '5px' }}>{item[c.key]}</td>);
+            cells.push(<td key={`dragged-cell-${rowIdx}-${c.key}`} className="react-grid-Cell" style={{ padding: '5px' }}>{item[c.key]}</td>);
           }
         }
       });
@@ -87,13 +90,26 @@ class CustomDragLayer extends Component {
     const draggedRows = this.renderDraggedRows();
     return (
       <div style={layerStyles} className="rdg-dragging">
-        <div style={getItemStyles(this.props)} className="rdg-dragging">
+        <div style={getItemStyles(this.props) } className="rdg-dragging">
           <table><tbody>{draggedRows}</tbody></table>
         </div>
       </div>
     );
   }
 }
+
+CustomDragLayer.propTypes = {
+  item: PropTypes.object,
+  itemType: PropTypes.string,
+  currentOffset: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }),
+  isDragging: PropTypes.bool.isRequired,
+  rowSelection: PropTypes.object,
+  rows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired
+};
 
 function collect(monitor) {
   return {

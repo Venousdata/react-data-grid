@@ -1,17 +1,11 @@
+import 'react-select/dist/react-select.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { isEmptyArray } from 'common/utils';
+import Column from 'common/prop-shapes/Column';
 
-import { isEmptyArray } from '../../../utils';
-
-export default class AutoCompleteFilter extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    // column: PropTypes.shape(shapes.Column),
-    getValidFilterValues: PropTypes.func,
-    multiSelection: PropTypes.bool
-  };
-
+class AutoCompleteFilter extends React.Component {
   constructor(props) {
     super(props);
     this.getOptions = this.getOptions.bind(this);
@@ -20,8 +14,6 @@ export default class AutoCompleteFilter extends React.Component {
     this.state = { options: this.getOptions(), rawValue: '', placeholder: 'Search' };
   }
 
-  // FIXME
-  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(newProps) {
     this.setState({ options: this.getOptions(newProps) });
   }
@@ -78,11 +70,18 @@ export default class AutoCompleteFilter extends React.Component {
         options={this.state.options}
         placeholder={this.state.placeholder}
         onChange={this.handleChange}
-        escapeClearsValue
+        escapeClearsValue={true}
         multi={this.props.multiSelection !== undefined && this.props.multiSelection !== null ? this.props.multiSelection : true}
-        value={this.state.filters}
-        menuRenderer={this.props.menuRenderer}
-      />
+        value={this.state.filters} />
     );
   }
 }
+
+AutoCompleteFilter.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  column: PropTypes.shape(Column),
+  getValidFilterValues: PropTypes.func,
+  multiSelection: PropTypes.bool
+};
+
+export default AutoCompleteFilter;

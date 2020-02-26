@@ -1,38 +1,34 @@
-# react-data-grid [![npm-badge]][npm-url] [![bundlesize-badge]][bundlesize-url] [![coverage-badge]][azure-url]
+# react-data-grid
 
-[npm-badge]: https://img.shields.io/npm/v/react-data-grid/alpha.svg
-[npm-url]: https://www.npmjs.com/package/react-data-grid
-[bundlesize-badge]: https://img.shields.io/bundlephobia/minzip/react-data-grid/alpha.svg
-[bundlesize-url]: https://bundlephobia.com/result?p=react-data-grid@alpha
-[coverage-badge]: https://img.shields.io/azure-devops/coverage/nstepi181/react-data-grid/1/alpha.svg?style=flat-square
-[azure-url]: https://dev.azure.com/nstepi181/react-data-grid/_build/latest?definitionId=1&branchName=alpha
+> The core of react-data-grid
+
 
 ## Install
 
 ```sh
-npm install react-data-grid
+npm install --save react-data-grid
 ```
 
 ## Usage
 
-```jsx
-import DataGrid from 'react-data-grid';
+```sh
+import ReactDataGrid from 'react-data-grid';
 
 const columns = [{ key: 'id', name: 'ID' }, { key: 'title', name: 'Title' }];
 const rows = [{ id: 1, title: 'Title 1' }, ...];
 const rowGetter = rowNumber => rows[rowNumber];
 
 const Grid = () => {
-  return <DataGrid
+  return <ReactDataGrid
     columns={columns}
     rowGetter={rowGetter}
     rowsCount={rows.length}
-    minHeight={500} />;
+    minHeight={500} />);
 }
 ```
 
 ## Exports
-Aside from the grid this package exports:
+Asside from the grid this package exports:
 
 name                   | source                                  |
 -----------------------|-----------------------------------------|
@@ -41,4 +37,8 @@ RowsContainer          | [RowsContainer](./src/RowsContainer.js) |
 Row                    | [Row](./src/Row.js)                     |
 Cell                   | [Cell](./src/Cell.js)                   |
 HeaderCell             | [HeaderCell](./src/HeaderCell.js)       |
+editors                | [Editors](./src/editors)                |
+formatters             | [Formatters](./src/formatters)          |
 shapes                 | [shapes](./src/PropTypeShapes)          |
+_constants             | [_constants](./src/AppConstants.js)     |
+_helpers               | [_helpers](./src/helpers)               |
