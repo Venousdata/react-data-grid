@@ -1,0 +1,22 @@
+{
+  "version": "7.0.0-alpha.30",
+  "ignoreChanges": [
+    "*.spec.*",
+    "*.md"
+  ],
+  "command": {
+    "publish": {
+      "allowBranch": [
+        "master",
+        "alpha",
+        "canary"
+      ],
+      "message": "Publish %s"
+    },
+    "bootstrap": {
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
+    }
+  }
+}

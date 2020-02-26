@@ -1,0 +1,10 @@
+/.eslintcache
+/coverage
+/packages/*/dist
+/packages/*/lib
+
+node_modules
+npm-debug.log
+lerna-debug.log
+**.orig
+package-lock.json

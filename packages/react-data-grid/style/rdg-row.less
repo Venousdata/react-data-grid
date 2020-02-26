@@ -1,0 +1,40 @@
+.rdg-row {
+  @bg: #fff;
+  background-color: @bg;
+
+  &:hover {
+    background-color: darken(@bg, 4%);
+  }
+}
+
+.rdg-row-selected {
+  @bg: #dbecfa;
+  background-color: @bg;
+
+  &:hover {
+    background-color: darken(@bg, 4%);
+  }
+}
+
+.rdg-row-expand-icon {
+  cursor: pointer;
+
+  &:hover {
+    color: #777;
+  }
+}
+
+.rdg-row-default-group {
+  padding: 0 8px;
+  border-bottom: 1px solid @borderColor;
+}
+
+.rdg-summary {
+  border-top: 2px solid darken(@borderColor, 20%);
+  position: relative;
+  overflow: hidden;
+
+  .rdg-row:last-child .rdg-cell {
+    border-bottom-color: transparent;
+  }
+}

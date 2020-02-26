@@ -1,0 +1,205 @@
+.rdg-cell {
+  display: inline-block;
+  position: absolute;
+  height: inherit;
+  padding: 0 8px;
+  border-right: 1px solid @borderColor;
+  border-bottom: 1px solid @borderColor;
+  background-color: inherit;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rdg-cell-frozen {
+  position: -webkit-sticky;
+  position: sticky;
+  /* Should have a higher value than 1 to show in front of cell masks */
+  z-index: 2;
+}
+
+.rdg-cell-frozen-last {
+  box-shadow: 2px 0 5px -2px rgba(136, 136, 136, .3);
+}
+
+.react-contextmenu--visible {
+  z-index: 1000;
+}
+
+.rdg-cell.readonly {
+  background-color : black;
+}
+
+.rdg-cell .form-control-feedback {
+  color: #a94442;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  z-index: 1000000;
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+.rdg-cell.editing {
+  padding: 0;
+  overflow: visible !important;
+}
+
+.rdg-cell.editing .has-error input {
+  border: 2px red solid !important;
+  border-radius: 2px !important;
+}
+
+.rdg-cell-value ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+.rdg-cell-value .btn-sm {
+  padding: 0;
+}
+
+.rdg-cell-expand {
+    float: right;
+    display: table;
+    height: 100%;
+}
+
+.rdg-cell-expand > span {
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.rdg-child-row-action-cross:before, rdg-child-row-action-cross:after {
+  content: "";
+  position: absolute;
+  background: grey;
+  height: 50%;
+}
+
+.rdg-child-row-action-cross:before {
+  left: 21px;
+  width: 1px;
+  height: 100%;
+}
+
+.rdg-child-row-action-cross:after {
+  top: 50%;
+  left:20px;
+  height: 1px;
+  width: 15px;
+  content: "";
+  position: absolute;
+  background: grey;
+}
+
+.rdg-child-row-action-cross:hover {
+    background: red;
+}
+.rdg-child-row-btn {
+  cursor: pointer;
+  position: absolute;
+  top: calc(50% - 6px);
+  height: 12px;
+  width: 12px;
+  z-index: 2;
+  background: white;
+}
+
+.rdg-child-row-btn .MuiSvgIcon-root {
+  font-size: 16px;
+  color: grey;
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+
+  &:hover {
+    color: red;
+  }
+}
+
+.rdg-cell-action {
+  float: right;
+  height: 100%;
+}
+
+.rdg-cell-action-last {
+  margin-right: -8px;
+}
+
+.rdg-cell-action-button {
+  width: 35px;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  display: table;
+  color: #4a9de2;
+}
+
+.rdg-cell-action-button > span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.rdg-cell-action-button:hover, .rdg-cell-action-button-toggled {
+  color: #447bbb;
+}
+
+.rdg-cell-action-menu {
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 3px 0 #ccc;
+}
+
+.rdg-cell-action-menu > span {
+  display: block;
+  padding: 3px 10px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+.rdg-cell-action-menu > span:hover {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+.rdg-cell-mask {
+  position: absolute;
+  pointer-events: none;
+  outline: none;
+}
+
+.rdg-filter-container {
+  display: flex;
+  height: inherit;
+  align-items: center;
+}
+
+.rdg-filter {
+  width: 100%;
+  padding: 4px;
+  font-size: 14px;
+}
+
+.rdg-filter-badge {
+  cursor: help;
+  padding-left: 4px;
+}
