@@ -15,7 +15,7 @@ export function getScrollbarSize(): number {
     document.body.removeChild(scrollDiv);
   }
 
-  return size;
+  return 0;
 }
 
 let positionSticky: boolean | undefined;

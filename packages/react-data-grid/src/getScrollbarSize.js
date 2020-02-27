@@ -25,5 +25,5 @@ export default function getScrollbarSize() {
     size = outerWidth - innerWidth;
   }
 
-  return size;
+  return 0;
 }

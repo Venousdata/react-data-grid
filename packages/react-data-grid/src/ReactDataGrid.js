@@ -810,7 +810,7 @@ class ReactDataGrid extends React.Component {
     }
 
     const toolbar = this.renderToolbar();
-    let containerWidth = this.props.minWidth || this.gridWidth();
+    let containerWidth = (this.props.minWidth || this.gridWidth()) - this.props.tableOffset;
     let gridWidth = containerWidth - this.state.scrollOffset;
 
     // depending on the current lifecycle stage, gridWidth() may not initialize correctly
