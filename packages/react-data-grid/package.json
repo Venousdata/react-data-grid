@@ -1,12 +1,12 @@
 {
   "name": "react-data-grid-noscrollbar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like (w/o scrollbar)",
   "scripts": {
     "test": "npm test",
     "beforepublish": "node ../../ci/publish/replacePackageEntry react-data-grid true",
     "postpublish": "node ../../ci/publish/replacePackageEntry react-data-grid",
-    "publish": "npm run beforepublish && npm publish && npm run postpublish"
+    "publish": "npm run beforepublish && npm run postpublish"
   },
   "keywords": [
     "react",
