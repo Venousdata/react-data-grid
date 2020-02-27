@@ -6,7 +6,7 @@
     "test": "npm test",
     "beforepublish": "node ../../ci/publish/replacePackageEntry react-data-grid true",
     "postpublish": "node ../../ci/publish/replacePackageEntry react-data-grid",
-    "publish": "npm run beforepublish && npm run postpublish"
+    "publish-package": "npm run beforepublish && npm publish && npm run postpublish"
   },
   "keywords": [
     "react",
